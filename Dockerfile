@@ -1,17 +1,23 @@
 FROM node:14-alpine
 
-WORKDIR /Home
+# Set the working directory to /app
+WORKDIR /app
 
-COPY . /var/lib/jenkins/workspace/works
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
+# Install dependencies
+RUN npm install
 
-RUN npm start
+# Copy the rest of the application code
+COPY . .
 
-
+# Make port 3000 available to the world outside this container
 EXPOSE 3000
 
 
-CMD ["node", "app.js"]
+# Run the application
+CMD ["npm", "start"]
 
 
 
