@@ -20,6 +20,18 @@ pipeline {
            sh 'npm run build'
         }
       }
+        stage('build image') {
+            steps {
+                script {
+                    echo "building the docker image..."
+                    docker.withRegistry("", "dockerhubcredentiels") {
+                        sh "docker build -t nodejsapp ."
+                        sh "docker push medali1996/nodejs:nodejsapp"
+                    }
+                }
+            }
+        }
    }
 }
  
+
