@@ -9,6 +9,17 @@ pipeline {
           steps {
                   checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/jambou123/work.git']]])
               }
+       }
+       stage('Install dependencies') {
+          steps {
+            sh 'npm install'
+      }
+    }
+       stage('test'){
+         steps {
+           sh 'npm run build'
+        }
+      }
    }
-  }
- }
+}
+ 
