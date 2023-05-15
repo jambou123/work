@@ -25,8 +25,9 @@ pipeline {
                 script {
                     echo "building the docker image..."
                     docker.withRegistry("", "dockerhubcredentiels") {
-                        sh "docker build -t nodejsapp ."
-                        sh "docker push medali1996/nodejs:nodejsapp"
+                        sh "docker build -t new ."
+                        sh "docker tag medali1996/nodejs:new"
+                        sh "docker push medali1996/nodejs:new"
                     }
                 }
             }
