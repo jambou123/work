@@ -1,25 +1,14 @@
 #!/usr/bin/env groovy
 pipeline {
-  agent any
-  tools {
-    nodejs 'nodejs12.22.9'
+    agent any
+    tools {
+      nodejs 'nodejs12.22.9'
+    }
+    stages {
+       stage('Checkout') {
+          steps {
+                  checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/jambou123/work.git']]])
+              }
+   }
   }
-  stages {
-  
-    stage('Install dependencies') {
-      steps {
-        sh 'npm install'
-      }
-    }
-    stage('Build') {
-      steps {
-        sh 'npm run build'
-      }
-    }
-    stage('Deploy') {
-      steps {
-        sh 'npm run deploy'
-      }
-    }
-  }
-}
+ }
