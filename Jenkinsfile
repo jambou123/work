@@ -32,6 +32,14 @@ pipeline {
                 }
             }
         }
+        stage('kubernetes deploy') {
+          steps {
+            withKubeConfig([credentialsId: 'work',serverUrl: 'https://192.168.199.41:6443']) {
+                    sh "sed -i 's#replace-image#medali1996/nodejs:new#g' deployment-nodejs.yaml"
+                    sh "kubectl apply -f deployment-nodejs.yaml --namespace=default"
+          }
+        }
+   }
    }
 }
  
