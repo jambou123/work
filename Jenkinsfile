@@ -15,7 +15,7 @@ pipeline {
             sh 'npm install'
       }
     }
-       stage('test'){
+       stage('build app'){
          steps {
            sh 'npm run build'
         }
@@ -32,7 +32,7 @@ pipeline {
                 }
             }
         }
-        stage('kubernetes deploy') {
+        stage('deploy on k8s') {
           steps {
             withKubeConfig([credentialsId: 'work',serverUrl: 'https://192.168.199.41:6443']) {
                     sh "sed -i 's#replace-image#medali1996/nodejs:new#g' deployment-nodejs.yaml"
